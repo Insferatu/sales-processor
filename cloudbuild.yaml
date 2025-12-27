@@ -36,7 +36,8 @@ steps:
       - '--min-instances=0'
       - '--max-instances=10'
       - '--timeout=30s'
-      - '--set-secrets=GOOGLE_SPREADSHEET_ID=google-spreadsheet-id:latest,GOOGLE_API_KEY=google-api-key:latest,TELEGRAM_BOT_TOKEN=telegram-bot-token:latest,TELEGRAM_CHAT_ID=telegram-chat-id:latest'
+      - '--service-account=sales-processor-sa@$PROJECT_ID.iam.gserviceaccount.com'
+      - '--set-secrets=TELEGRAM_BOT_TOKEN=telegram-bot-token:latest,TELEGRAM_CHAT_ID=telegram-chat-id:latest,TOY_SPREADSHEET_ID=toy-spreadsheet-id:latest,TOY_SHEET_NAME=toy-sheet-name:latest,JEWELRY_SPREADSHEET_ID=jewelry-spreadsheet-id:latest,JEWELRY_SHEET_NAME=jewelry-sheet-name:latest'
 
 substitutions:
   _REGION: 'europe-west1'
