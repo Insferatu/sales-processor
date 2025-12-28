@@ -4,21 +4,21 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/sales-processor:$COMMIT_SHA'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/sales-processor/sales-processor:$COMMIT_SHA'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/sales-processor:latest'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/sales-processor/sales-processor:latest'
       - '.'
 
-  # Push the container image to Container Registry
+  # Push the container image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/sales-processor:$COMMIT_SHA'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/sales-processor/sales-processor:$COMMIT_SHA'
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/sales-processor:latest'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/sales-processor/sales-processor:latest'
 
   # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -27,7 +27,7 @@ steps:
       - 'run'
       - 'deploy'
       - 'sales-processor'
-      - '--image=gcr.io/$PROJECT_ID/sales-processor:$COMMIT_SHA'
+      - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/sales-processor/sales-processor:$COMMIT_SHA'
       - '--region=${_REGION}'
       - '--platform=managed'
       - '--allow-unauthenticated'
@@ -43,8 +43,8 @@ substitutions:
   _REGION: 'europe-west1'
 
 images:
-  - 'gcr.io/$PROJECT_ID/sales-processor:$COMMIT_SHA'
-  - 'gcr.io/$PROJECT_ID/sales-processor:latest'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/sales-processor/sales-processor:$COMMIT_SHA'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/sales-processor/sales-processor:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY
