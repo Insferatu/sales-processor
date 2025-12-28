@@ -15,7 +15,7 @@ import (
 // JewelrySaleEvent represents an incoming jewelry sale event
 type JewelrySaleEvent struct {
 	Time        string `json:"time"`
-	Item        string `json:"item"`
+	Product     string `json:"product"`
 	Price       string `json:"price"`
 	PaymentType string `json:"paymentType"`
 }
@@ -45,8 +45,8 @@ func (h *JewelrySaleHandler) HandleSale(w http.ResponseWriter, r *http.Request) 
 	defer r.Body.Close()
 
 	// Validate required fields
-	if event.Item == "" {
-		http.Error(w, "Missing required field: item", http.StatusBadRequest)
+	if event.Product == "" {
+		http.Error(w, "Missing required field: product", http.StatusBadRequest)
 		return
 	}
 
@@ -95,7 +95,7 @@ func (h *JewelrySaleHandler) HandleSale(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	log.Printf("Successfully processed jewelry sale: %s", event.Item)
+	log.Printf("Successfully processed jewelry sale: %s", event.Product)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -110,7 +110,7 @@ func (h *JewelrySaleHandler) HandleSale(w http.ResponseWriter, r *http.Request) 
 func (e *JewelrySaleEvent) toSheetRow() []interface{} {
 	return []interface{}{
 		e.Time,
-		e.Item,
+		e.Product,
 		e.Price,
 		e.PaymentType,
 	}
@@ -120,7 +120,7 @@ func (e *JewelrySaleEvent) toSheetRow() []interface{} {
 func (e *JewelrySaleEvent) toTelegramMessage() string {
 	return fmt.Sprintf(
 		"Товар: %s\nПродано за: %s\nТип оплаты: %s",
-		e.Item,
+		e.Product,
 		e.Price,
 		e.PaymentType,
 	)

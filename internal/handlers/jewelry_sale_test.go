@@ -8,7 +8,7 @@ import (
 func TestJewelrySaleEvent_toSheetRow(t *testing.T) {
 	event := JewelrySaleEvent{
 		Time:        "2025-11-18 22:45:48",
-		Item:        "Браслет",
+		Product:     "Браслет",
 		Price:       "40",
 		PaymentType: "Карта",
 	}
@@ -25,7 +25,7 @@ func TestJewelrySaleEvent_toSheetRow(t *testing.T) {
 	}
 
 	if row[1] != "Браслет" {
-		t.Errorf("Expected item 'Браслет', got '%v'", row[1])
+		t.Errorf("Expected product 'Браслет', got '%v'", row[1])
 	}
 
 	if row[2] != "40" {
@@ -40,7 +40,7 @@ func TestJewelrySaleEvent_toSheetRow(t *testing.T) {
 func TestJewelrySaleEvent_toTelegramMessage(t *testing.T) {
 	event := JewelrySaleEvent{
 		Time:        "2025-11-18 22:45:48",
-		Item:        "Браслет",
+		Product:     "Браслет",
 		Price:       "40",
 		PaymentType: "Карта",
 	}
@@ -57,7 +57,7 @@ func TestJewelrySaleEvent_toTelegramMessage(t *testing.T) {
 func TestJewelrySaleEvent_toTelegramMessage_ContainsAllFields(t *testing.T) {
 	event := JewelrySaleEvent{
 		Time:        "2025-11-18 22:45:48",
-		Item:        "Кольцо",
+		Product:     "Кольцо",
 		Price:       "200",
 		PaymentType: "Наличные",
 	}
